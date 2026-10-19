@@ -50,57 +50,43 @@
 
 <script>
 (()=> {
-  const list=document.getElementById('claims-list');
-  if(!list)return;
-  // Keep this source and amount range aligned with the demo notifications in claim.html.
-  const users=['0x39***582','0x7A***914','0xB2***306','0x4F***771','0x91***428','0xD8***653','0x26***845','0x63***219'];
-  const randomAmount=()=>Math.floor(Math.random()*(10000-1000+1))+1000;
-  const makeRow=()=> {
-    const row=document.createElement('article'); row.className='claim-row';
-    const status=document.createElement('span'); status.className='claim-status';
-    const dot=document.createElement('span'); dot.className='status-dot'; status.append(dot,document.createTextNode('Demo claim notification'));
-    const wallet=document.createElement('span'); wallet.className='claim-wallet'; wallet.textContent=users[Math.floor(Math.random()*users.length)];
-    const amount=document.createElement('strong'); amount.textContent='
-    row.append(status,wallet,amount); return row;
+  const list = document.getElementById('claims-list');
+  if (!list) return;
+  const users = ['0x39***582','0x7A***914','0xB2***306','0x4F***771','0x91***428','0xD8***653','0x26***845','0x63***219'];
+  const randomAmount = () => Math.floor(Math.random() * (10000 - 1000 + 1)) + 1000;
+  const makeRow = () => {
+    const row = document.createElement('article');
+    row.className = 'claim-row';
+    const status = document.createElement('span');
+    status.className = 'claim-status';
+    const dot = document.createElement('span');
+    dot.className = 'status-dot';
+    status.append(dot, document.createTextNode('Demo claim notification'));
+    const wallet = document.createElement('span');
+    wallet.className = 'claim-wallet';
+    wallet.textContent = users[Math.floor(Math.random() * users.length)];
+    const amount = document.createElement('strong');
+    amount.textContent = '$' + randomAmount().toLocaleString('en-US');
+    row.append(status, wallet, amount);
+    return row;
   };
-  for(let i=0;i<8;i++)list.append(makeRow());
-  let offset=0;
-  setInterval(()=>{
-    const first=list.firstElementChild;
-    if(!first)return;
-    const step=first.getBoundingClientRect().height+10;
-    list.style.transition='transform 650ms ease';
-    list.style.transform='translateY(-'+step+'px)';
-    setTimeout(()=>{
-      list.style.transition='none'; list.style.transform='translateY(0)';
-      list.append(first.cloneNode(true)); first.remove();
-    },680);
-  },2200);
-  setInterval(()=>{
-    if(list.lastElementChild)list.replaceChild(makeRow(),list.lastElementChild);
-  },5000);
-})();
-</script>
-</body>
-</html>+randomAmount().toLocaleString('en-US');
-    row.append(status,wallet,amount); return row;
-  };
-  for(let i=0;i<8;i++)list.append(makeRow());
-  let offset=0;
-  setInterval(()=>{
-    const first=list.firstElementChild;
-    if(!first)return;
-    const step=first.getBoundingClientRect().height+10;
-    list.style.transition='transform 650ms ease';
-    list.style.transform='translateY(-'+step+'px)';
-    setTimeout(()=>{
-      list.style.transition='none'; list.style.transform='translateY(0)';
-      list.append(first.cloneNode(true)); first.remove();
-    },680);
-  },2200);
-  setInterval(()=>{
-    if(list.lastElementChild)list.replaceChild(makeRow(),list.lastElementChild);
-  },5000);
+  for (let i = 0; i < 8; i++) list.append(makeRow());
+  setInterval(() => {
+    const first = list.firstElementChild;
+    if (!first) return;
+    const step = first.getBoundingClientRect().height + 10;
+    list.style.transition = 'transform 650ms ease';
+    list.style.transform = 'translateY(-' + step + 'px)';
+    setTimeout(() => {
+      list.style.transition = 'none';
+      list.style.transform = 'translateY(0)';
+      list.append(first.cloneNode(true));
+      first.remove();
+    }, 680);
+  }, 2200);
+  setInterval(() => {
+    if (list.lastElementChild) list.replaceChild(makeRow(), list.lastElementChild);
+  }, 5000);
 })();
 </script>
 </body>
