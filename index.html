@@ -78,8 +78,7 @@
     },680);
   },2200);
   setInterval(()=>{
-    const row=makeRow(); list.append(row);
-    while(list.children.length>8)list.lastElementChild.remove();
+    if(list.lastElementChild)list.replaceChild(makeRow(),list.lastElementChild);
   },5000);
 })();
 </script>
