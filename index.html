@@ -61,6 +61,27 @@
     const dot=document.createElement('span'); dot.className='status-dot'; status.append(dot,document.createTextNode('Demo claim notification'));
     const wallet=document.createElement('span'); wallet.className='claim-wallet'; wallet.textContent=users[Math.floor(Math.random()*users.length)];
     const amount=document.createElement('strong'); amount.textContent='
+    row.append(status,wallet,amount); return row;
+  };
+  for(let i=0;i<8;i++)list.append(makeRow());
+  let offset=0;
+  setInterval(()=>{
+    const first=list.firstElementChild;
+    if(!first)return;
+    const step=first.getBoundingClientRect().height+10;
+    list.style.transition='transform 650ms ease';
+    list.style.transform='translateY(-'+step+'px)';
+    setTimeout(()=>{
+      list.style.transition='none'; list.style.transform='translateY(0)';
+      list.append(first.cloneNode(true)); first.remove();
+    },680);
+  },2200);
+  setInterval(()=>{
+    if(list.lastElementChild)list.replaceChild(makeRow(),list.lastElementChild);
+  },5000);
+})();
+</script>
+</body>
 </html>+randomAmount().toLocaleString('en-US');
     row.append(status,wallet,amount); return row;
   };
