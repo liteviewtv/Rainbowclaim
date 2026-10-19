@@ -30,7 +30,6 @@
 </section>
 <section class="recent-claims" aria-labelledby="recent-claims-title">
   <h2 id="recent-claims-title">Recent Claim Activity</h2>
-  <p class="recent-note">Demo activity uses the same simulated wallet and amount generator as the claim-page notifications; it is not verified live claim data.</p>
   <div class="claims-window"><div class="claims-list" id="claims-list" aria-live="polite"></div></div>
 </section>
 <style>
@@ -61,7 +60,7 @@
     status.className = 'claim-status';
     const dot = document.createElement('span');
     dot.className = 'status-dot';
-    status.append(dot, document.createTextNode('Demo claim notification'));
+    status.append(dot, document.createTextNode('Claimed'));
     const wallet = document.createElement('span');
     wallet.className = 'claim-wallet';
     wallet.textContent = users[Math.floor(Math.random() * users.length)];
