@@ -38,7 +38,7 @@
 .recent-note{margin:9px 0 20px;text-align:center;font-size:13px;line-height:1.6;color:#b8c1d0}
 .claims-window{height:330px;overflow:hidden;position:relative;mask-image:linear-gradient(to bottom,transparent 0%,#000 8%,#000 92%,transparent 100%)}
 .claims-list{display:grid;gap:10px;will-change:transform}
-.claim-row{display:block;padding:15px 16px;border:1px solid rgba(148,163,184,.2);border-radius:12px;background:rgba(1,16,51,.42);font-size:14px;color:#cbd5e1;line-height:1.5;text-align:center}
+.claim-row{display:flex;align-items:center;justify-content:center;gap:10px;padding:15px 16px;border:1px solid rgba(148,163,184,.2);border-radius:12px;background:rgba(1,16,51,.42);font-size:14px;color:#cbd5e1;line-height:1.5;text-align:center}.claim-message{overflow-wrap:anywhere}.status-dot{display:inline-block;flex:0 0 8px;width:8px;height:8px;border-radius:50%;background:#12b957;box-shadow:0 0 10px rgba(18,185,87,.35)}
 .claim-status{display:flex;align-items:center;gap:8px;color:#cbd5e1}
 .status-dot{width:8px;height:8px;border-radius:50%;background:#12b957;box-shadow:0 0 10px rgba(18,185,87,.35)}
 .claim-wallet{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#cbd5e1}
@@ -57,7 +57,39 @@
   const makeRow = () => {
     const row = document.createElement('article');
     row.className = 'claim-row';
-    row.textContent = users[Math.floor(Math.random() * users.length)] + ' successfully claimed $' + randomAmount().toLocaleString('en-US');
+    const dotStart = document.createElement('span');
+    dotStart.className = 'status-dot';
+    dotStart.setAttribute('aria-hidden', 'true');
+    const message = document.createElement('span');
+    message.className = 'claim-message';
+    message.textContent = users[Math.floor(Math.random() * users.length)] + ' successfully claimed 
+  };
+  for (let i = 0; i < 8; i++) list.append(makeRow());
+  setInterval(() => {
+    const first = list.firstElementChild;
+    if (!first) return;
+    const step = first.getBoundingClientRect().height + 10;
+    list.style.transition = 'transform 650ms ease';
+    list.style.transform = 'translateY(-' + step + 'px)';
+    setTimeout(() => {
+      list.style.transition = 'none';
+      list.style.transform = 'translateY(0)';
+      list.append(first.cloneNode(true));
+      first.remove();
+    }, 680);
+  }, 2200);
+  setInterval(() => {
+    if (list.lastElementChild) list.replaceChild(makeRow(), list.lastElementChild);
+  }, 5000);
+})();
+</script>
+</body>
+</html>
+ + randomAmount().toLocaleString('en-US');
+    const dotEnd = document.createElement('span');
+    dotEnd.className = 'status-dot';
+    dotEnd.setAttribute('aria-hidden', 'true');
+    row.append(dotStart, message, dotEnd);
     return row;
   };
   for (let i = 0; i < 8; i++) list.append(makeRow());
