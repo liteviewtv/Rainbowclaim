@@ -51,45 +51,21 @@
 (()=> {
   const list = document.getElementById('claims-list');
   if (!list) return;
-  // Mirrors the claim page's demo notification wording, wallet list, and amount range.
   const users = ['0x39***582','0x7A***914','0xB2***306','0x4F***771','0x91***428','0xD8***653','0x26***845','0x63***219'];
-  const randomAmount = () => Math.floor(Math.random() * (10000 - 1000 + 1)) + 1000;
+  const randomAmount = () => Math.floor(Math.random() * 9001) + 1000;
   const makeRow = () => {
     const row = document.createElement('article');
     row.className = 'claim-row';
-    const dotStart = document.createElement('span');
-    dotStart.className = 'status-dot';
-    dotStart.setAttribute('aria-hidden', 'true');
+    const leftDot = document.createElement('span');
+    leftDot.className = 'status-dot';
+    leftDot.setAttribute('aria-hidden', 'true');
     const message = document.createElement('span');
     message.className = 'claim-message';
-    message.textContent = users[Math.floor(Math.random() * users.length)] + ' successfully claimed 
-  };
-  for (let i = 0; i < 8; i++) list.append(makeRow());
-  setInterval(() => {
-    const first = list.firstElementChild;
-    if (!first) return;
-    const step = first.getBoundingClientRect().height + 10;
-    list.style.transition = 'transform 650ms ease';
-    list.style.transform = 'translateY(-' + step + 'px)';
-    setTimeout(() => {
-      list.style.transition = 'none';
-      list.style.transform = 'translateY(0)';
-      list.append(first.cloneNode(true));
-      first.remove();
-    }, 680);
-  }, 2200);
-  setInterval(() => {
-    if (list.lastElementChild) list.replaceChild(makeRow(), list.lastElementChild);
-  }, 5000);
-})();
-</script>
-</body>
-</html>
- + randomAmount().toLocaleString('en-US');
-    const dotEnd = document.createElement('span');
-    dotEnd.className = 'status-dot';
-    dotEnd.setAttribute('aria-hidden', 'true');
-    row.append(dotStart, message, dotEnd);
+    message.textContent = users[Math.floor(Math.random() * users.length)] + ' successfully claimed $' + randomAmount().toLocaleString('en-US');
+    const rightDot = document.createElement('span');
+    rightDot.className = 'status-dot';
+    rightDot.setAttribute('aria-hidden', 'true');
+    row.append(leftDot, message, rightDot);
     return row;
   };
   for (let i = 0; i < 8; i++) list.append(makeRow());
